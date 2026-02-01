@@ -1,0 +1,30 @@
+{
+  "name": "flink",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm run --parallel dev",
+    "dev:web": "pnpm --filter @flink/web dev",
+    "dev:api": "pnpm --filter @flink/api dev",
+    "build": "pnpm run --parallel build",
+    "build:web": "pnpm --filter @flink/web build",
+    "build:api": "pnpm --filter @flink/api build",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "db:generate": "pnpm --filter @flink/api db:generate",
+    "db:migrate": "pnpm --filter @flink/api db:migrate",
+    "db:studio": "pnpm --filter @flink/api db:studio"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
