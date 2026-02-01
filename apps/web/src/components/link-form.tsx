@@ -32,6 +32,7 @@ export function LinkForm({ onSuccess }: LinkFormProps) {
       try {
         const [result] = await Promise.all([
           shortenUrl(value.url),
+          // Add a small min delay for UX
           new Promise((resolve) => setTimeout(resolve, 300)),
         ])
         onSuccess(result)
@@ -48,7 +49,6 @@ export function LinkForm({ onSuccess }: LinkFormProps) {
     <form
       onSubmit={(e) => {
         e.preventDefault()
-        e.stopPropagation()
         form.handleSubmit()
       }}
     >
