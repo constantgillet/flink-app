@@ -17,8 +17,8 @@ export function RecentLinks({ links }: RecentLinksProps) {
 
   return (
     <div className="rounded-none bg-white p-8">
-      <h2 className="mb-4 text-lg font-semibold text-gray-800 flex items-center gap-2">
-        <ClockIcon className="size-5 text-muted-foreground" /> Recent Links
+      <h2 className="mb-4 text-lg font-semibold text-muted-foreground flex items-center gap-2">
+        <ClockIcon className="size-5" /> Recent Links
       </h2>
       <div className="space-y-3">
         {links.map((link) => (
