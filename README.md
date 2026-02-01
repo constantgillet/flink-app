@@ -17,7 +17,7 @@ A minimal and modern URL shortener service built with React, Hono, Drizzle, Post
 - **TypeScript** - Type safety
 - **Drizzle ORM** - Type-safe database ORM
 - **PostgreSQL** - Relational database
-- **Redis** - In-memory caching for fast redirects
+- **Redis** - In-memory caching for fast redirects and rate limiting
 
 ### Tooling
 - **pnpm** - Fast, disk-efficient package manager
@@ -36,13 +36,28 @@ flink/
 └── package.json
 ```
 
-## Prerequisites
+## Quick Start Deployment (Docker)
+
+```bash
+docker compose up --build
+```
+
+That's it! The application will be available at http://localhost
+
+This will:
+- Start PostgreSQL database
+- Start Redis for caching
+- Run database migrations automatically
+- Build and start the API server
+- Build and serve the frontend via nginx
+
+## Development Setup
+
+### Prerequisites
 
 - Node.js 20+
 - pnpm 9+
-- Docker & Docker Compose (for database / production)
-
-## Getting Started
+- Docker & Docker Compose
 
 ### 1. Install Dependencies
 
@@ -52,34 +67,29 @@ pnpm install
 
 ### 2. Set Up Environment
 
-Copy the example environment file:
-
 ```bash
 cp .env.example .env
 ```
 
-### 3. Start the Database and Redis
+### 3. Start Database and Redis
 
 ```bash
 docker compose -f docker-compose.dev.yml up -d
 ```
 
-This starts PostgreSQL and Redis for local development.
-
-### 4. Run Database Migrations
+### 4. Run Migrations
 
 ```bash
-pnpm db:generate
 pnpm db:migrate
 ```
 
-### 5. Start Development Servers
+### 5. Start Dev Servers
 
 ```bash
 pnpm dev
 ```
 
-This starts both the frontend (http://localhost:5173) and backend (http://localhost:3000).
+Frontend: http://localhost:5173 | Backend: http://localhost:3000
 
 ## Available Scripts
 
@@ -95,30 +105,6 @@ This starts both the frontend (http://localhost:5173) and backend (http://localh
 | `pnpm db:generate` | Generate Drizzle migrations |
 | `pnpm db:migrate` | Run database migrations |
 | `pnpm db:studio` | Open Drizzle Studio (database GUI) |
-
-## Docker Deployment
-
-### Build and Run Everything
-
-```bash
-docker compose up --build
-```
-
-This will:
-- Start PostgreSQL database
-- Start Redis for caching
-- Build and start the API server
-- Build and serve the frontend via nginx
-
-The application will be available at http://localhost
-
-### Development with Docker (Database Only)
-
-```bash
-docker compose -f docker-compose.dev.yml up -d
-```
-
-Then run the apps locally with `pnpm dev`.
 
 ## API Endpoints
 
