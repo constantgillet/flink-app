@@ -1,6 +1,6 @@
 # Flink - URL Shortener
 
-![Flink Mockup](assets/mockup.png)
+![Flink Mockup](mockup.png)
 
 A minimal and modern URL shortener service built with React, Hono, Drizzle, PostgreSQL And Redis.
 
