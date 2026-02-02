@@ -24,6 +24,7 @@ redirectRouter.get('/:shortCode', async (c) => {
     }
   } catch {
     // If Redis fails, continue to database lookup
+    console.error('Failed to get link from Redis', error)
   }
 
   // Cache miss - fetch from database (only active links)
@@ -42,6 +43,7 @@ redirectRouter.get('/:shortCode', async (c) => {
     await redis.set(cacheKey, link.originalUrl, 'EX', CACHE_TTL)
   } catch {
     // If Redis fails, continue without caching
+    console.error('Failed to cache link in Redis', error)
   }
 
   return c.redirect(link.originalUrl, 302)
