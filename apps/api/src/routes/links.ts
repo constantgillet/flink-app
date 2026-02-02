@@ -1,12 +1,9 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
-import { customAlphabet } from 'nanoid'
 import { z } from 'zod'
-
-// Only alphanumeric characters (no _ or -)
-const nanoid = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', 7)
-
 import { db, links } from '../db'
+import { getClientIp } from '../lib/client-ip'
+import { nanoid } from '../lib/nanoid'
 import { RATE_LIMITS, checkRateLimit } from '../lib/rate-limit'
 
 export const linksRouter = new Hono()
@@ -14,13 +11,6 @@ export const linksRouter = new Hono()
 const createLinkSchema = z.object({
   url: z.string().url('Please enter a valid URL').max(2048, 'URL is too long'),
 })
-
-// Get client IP from request headers (works behind proxies)
-const getClientIp = (c: { req: { header: (name: string) => string | undefined } }):
-  | string
-  | null => {
-  return c.req.header('x-forwarded-for')?.split(',')[0]?.trim() || c.req.header('x-real-ip') || null
-}
 
 // Create a short link
 linksRouter.post('/', zValidator('json', createLinkSchema), async (c) => {
